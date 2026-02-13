@@ -20,7 +20,7 @@ body {
   padding: 30px 16px;
 }
 
-/* TOP IMAGE */
+/* FIRST PAGE TOP IMAGE */
 .top-image {
   width: 85%;
   max-width: 340px;
@@ -51,20 +51,13 @@ body {
 }
 
 .header-gif {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
 }
 
-h2 {
-  margin: 0;
-  font-weight: 500;
-}
-
-h1 {
-  font-size: 1.6rem;
-  margin: 20px 0 26px 0;
-}
+h2 { margin: 0; font-weight: 500; }
+h1 { font-size: 1.6rem; margin: 20px 0 26px 0; }
 
 /* Buttons side by side */
 .button-row {
@@ -82,16 +75,8 @@ button {
   min-width: 120px;
 }
 
-#yes {
-  background: #ff5c8d;
-  color: white;
-}
-
-#no {
-  background: #e0e0e0;
-  color: #333;
-  position: relative;
-}
+#yes { background: #ff5c8d; color: white; }
+#no { background: #e0e0e0; color: #333; position: relative; }
 
 .outside-hint {
   margin-top: 16px;
@@ -122,25 +107,26 @@ button {
 
 .border-photo {
   position: absolute;
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 18px;
   box-shadow: 0 8px 18px rgba(0,0,0,0.2);
 }
 
-.top-left { top: 60px; left: 80px; transform: rotate(-6deg); }
-.top-middle { top: 10px; left: 50%; transform: translateX(-50%) rotate(4deg); }
-.top-right { top: 60px; right: 80px; transform: rotate(6deg); }
+/* Brought closer to white box */
+.top-left { top: 100px; left: 80px; transform: rotate(-6deg); }
+.top-middle { top: 60px; left: 50%; transform: translateX(-50%) rotate(4deg); }
+.top-right { top: 100px; right: 80px; transform: rotate(6deg); }
 
-.bottom-left { bottom: 60px; left: 80px; transform: rotate(5deg); }
-.bottom-middle { bottom: 10px; left: 50%; transform: translateX(-50%) rotate(-4deg); }
-.bottom-right { bottom: 60px; right: 80px; transform: rotate(-5deg); }
+.bottom-left { bottom: 100px; left: 80px; transform: rotate(5deg); }
+.bottom-middle { bottom: 60px; left: 50%; transform: translateX(-50%) rotate(-4deg); }
+.bottom-right { bottom: 100px; right: 80px; transform: rotate(-5deg); }
 
-.left-middle { top: 50%; left: 40px; transform: translateY(-50%) rotate(8deg); }
-.right-middle { top: 50%; right: 40px; transform: translateY(-50%) rotate(-8deg); }
+.left-middle { top: 50%; left: 60px; transform: translateY(-50%) rotate(8deg); }
+.right-middle { top: 50%; right: 60px; transform: translateY(-50%) rotate(-8deg); }
 
-/* Celebration container */
+/* Celebration wrapper */
 .celebration-wrapper {
   display: flex;
   flex-direction: column;
@@ -148,36 +134,36 @@ button {
   z-index: 2;
 }
 
-/* GIFs directly above white box */
+/* GIFs anchored to white box edges */
 .top-gif-row {
   display: flex;
   justify-content: space-between;
-  width: 220px;
+  width: 200px;   /* matches white box width */
   margin-bottom: 10px;
 }
 
 .top-gif-row img {
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
 }
 
-/* Reduced width white box */
+/* WHITE BOX REDUCED WIDTH */
 .celebration-box {
   background: white;
-  width: 240px;  /* narrower */
-  height: 340px;
+  width: 200px;   /* reduced more */
+  height: 320px;
   border-radius: 24px;
   box-shadow: 0 18px 40px rgba(0,0,0,0.15);
-  padding: 25px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
 .celebration-box h1 {
-  font-size: 1.1rem;
-  margin-bottom: 20px;
+  font-size: 1.05rem;
+  margin-bottom: 15px;
 }
 
 .photo-space {
@@ -188,31 +174,31 @@ button {
 }
 
 .celebration-photo {
-  width: 65%;
+  width: 70%;
+  border-radius: 16px;
   object-fit: cover;
-  border-radius: 18px;
 }
 
 /* Responsive */
 @media (max-width: 600px) {
 
   .border-photo {
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
   }
 
   .celebration-box {
-    width: 220px;
-    height: 320px;
+    width: 180px;
+    height: 300px;
   }
 
   .top-gif-row {
-    width: 200px;
+    width: 180px;
   }
 
   .header-gif {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
   }
 }
 </style>
@@ -220,7 +206,7 @@ button {
 
 <body>
 
-<img src="proposal.jpeg" class="top-image" />
+<img src="photo9.jpeg" class="top-image" />
 
 <div class="card" id="page1">
 
@@ -285,8 +271,8 @@ let dodgeCount = 0;
 
 function moveNoButton() {
   dodgeCount++;
-
-  const cardRect = document.querySelector(".card").getBoundingClientRect();
+  const card = document.querySelector(".card");
+  const cardRect = card.getBoundingClientRect();
   const noRect = noBtn.getBoundingClientRect();
   const yesRect = yesBtn.getBoundingClientRect();
 
@@ -299,21 +285,15 @@ function moveNoButton() {
 
   while (!valid && attempts < 50) {
     attempts++;
-
     newX = Math.random() * (cardRect.width - noRect.width - padding * 2) + padding;
     newY = Math.random() * (cardRect.height - noRect.height - padding * 2) + padding;
 
     const noCenterX = newX + noRect.width / 2;
     const noCenterY = newY + noRect.height / 2;
-
     const yesCenterX = yesBtn.offsetLeft + yesRect.width / 2;
     const yesCenterY = yesBtn.offsetTop + yesRect.height / 2;
 
-    const distance = Math.hypot(
-      noCenterX - yesCenterX,
-      noCenterY - yesCenterY
-    );
-
+    const distance = Math.hypot(noCenterX - yesCenterX, noCenterY - yesCenterY);
     if (distance > minDistance) valid = true;
   }
 
