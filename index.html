@@ -18,7 +18,6 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 30px 16px;
-  position: relative;
 }
 
 /* TOP IMAGE */
@@ -30,20 +29,6 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.18);
 }
 
-/* FIRST PAGE SIDE GIFS */
-.side-gif {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 0;
-}
-
-.left-side { left: 5%; }
-.right-side { right: 5%; }
-
 /* FIRST PAGE CARD */
 .card {
   position: relative;
@@ -54,36 +39,58 @@ body {
   width: 90%;
   max-width: 380px;
   box-shadow: 0 18px 40px rgba(0,0,0,0.15);
-  z-index: 2;
 }
 
-h2 { margin: 0 0 8px; font-weight: 500; }
-h1 { font-size: 1.6rem; margin-bottom: 26px; }
+/* GIF3 inside white box */
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.header-gif {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+h2 {
+  margin: 0;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin: 20px 0 26px 0;
+}
+
+/* Buttons side by side */
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
 
 button {
-  padding: 16px 26px;
+  padding: 14px 24px;
   font-size: 1rem;
   border-radius: 14px;
   border: none;
   cursor: pointer;
-  min-width: 140px;
+  min-width: 120px;
 }
 
 #yes {
   background: #ff5c8d;
   color: white;
-  position: relative;
-  z-index: 2;
 }
 
 #no {
   background: #e0e0e0;
   color: #333;
-  position: absolute;
-  left: 50%;
-  top: 180px;
-  transform: translateX(-50%);
-  z-index: 1;
+  position: relative;
 }
 
 .outside-hint {
@@ -122,7 +129,6 @@ button {
   box-shadow: 0 8px 18px rgba(0,0,0,0.2);
 }
 
-/* Adjusted positions to avoid overlap */
 .top-left { top: 60px; left: 80px; transform: rotate(-6deg); }
 .top-middle { top: 10px; left: 50%; transform: translateX(-50%) rotate(4deg); }
 .top-right { top: 60px; right: 80px; transform: rotate(6deg); }
@@ -134,42 +140,43 @@ button {
 .left-middle { top: 50%; left: 40px; transform: translateY(-50%) rotate(8deg); }
 .right-middle { top: 50%; right: 40px; transform: translateY(-50%) rotate(-8deg); }
 
-/* TOP GIFS */
-.top-gif {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  z-index: 3;
-}
-
-.left-gif {
-  top: calc(50% - 150px);
-  left: calc(50% - 230px);
-}
-
-.right-gif {
-  top: calc(50% - 150px);
-  right: calc(50% - 230px);
-}
-
-/* Celebration Box — slightly shorter */
-.celebration-box {
-  position: relative;
-  background: white;
-  width: 300px;
-  height: 360px;  /* shorter */
-  border-radius: 24px;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.15);
-  padding: 30px;
+/* Celebration container */
+.celebration-wrapper {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  align-items: center;
   z-index: 2;
 }
 
+/* GIFs directly above white box */
+.top-gif-row {
+  display: flex;
+  justify-content: space-between;
+  width: 220px;
+  margin-bottom: 10px;
+}
+
+.top-gif-row img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+}
+
+/* Reduced width white box */
+.celebration-box {
+  background: white;
+  width: 240px;  /* narrower */
+  height: 340px;
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 .celebration-box h1 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: 20px;
 }
 
@@ -182,7 +189,6 @@ button {
 
 .celebration-photo {
   width: 65%;
-  max-height: 200px;
   object-fit: cover;
   border-radius: 18px;
 }
@@ -190,34 +196,23 @@ button {
 /* Responsive */
 @media (max-width: 600px) {
 
-  .side-gif {
-    width: 50px;
-    height: 50px;
-  }
-
-  .celebration-box {
-    width: 260px;
-    height: 330px;
-  }
-
   .border-photo {
     width: 75px;
     height: 75px;
   }
 
-  .top-gif {
-    width: 55px;
-    height: 55px;
+  .celebration-box {
+    width: 220px;
+    height: 320px;
   }
 
-  .left-gif {
-    left: 8%;
-    top: 12%;
+  .top-gif-row {
+    width: 200px;
   }
 
-  .right-gif {
-    right: 8%;
-    top: 12%;
+  .header-gif {
+    width: 35px;
+    height: 35px;
   }
 }
 </style>
@@ -225,17 +220,23 @@ button {
 
 <body>
 
-<img src="gif3.gif" class="side-gif left-side">
-<img src="gif3.gif" class="side-gif right-side">
-
 <img src="proposal.jpeg" class="top-image" />
 
 <div class="card" id="page1">
-  <h2>Hieee bubuuuu</h2>
+
+  <div class="header-row">
+    <img src="gif3.gif" class="header-gif">
+    <h2>Hieee bubuuuu</h2>
+    <img src="gif3.gif" class="header-gif">
+  </div>
+
   <h1>Will you be my Valentine? 💖 👉👈</h1>
 
-  <button id="yes">Yes 💘</button>
-  <button id="no">No<br><small>try me</small></button>
+  <div class="button-row">
+    <button id="yes">Yes 💘</button>
+    <button id="no">No<br><small>try me</small></button>
+  </div>
+
 </div>
 
 <div class="outside-hint" id="hint">
@@ -257,14 +258,20 @@ button {
     <img src="photo6.jpeg" class="border-photo right-middle">
   </div>
 
-  <img src="gif1.gif" class="top-gif left-gif">
-  <img src="gif2.gif" class="top-gif right-gif">
+  <div class="celebration-wrapper">
 
-  <div class="celebration-box">
-    <h1>yayyyyyyyy i love youuuuu! 😘😘😘</h1>
-    <div class="photo-space">
-      <img src="proposal.jpeg" class="celebration-photo">
+    <div class="top-gif-row">
+      <img src="gif1.gif">
+      <img src="gif2.gif">
     </div>
+
+    <div class="celebration-box">
+      <h1>yayyyyyyyy i love youuuuu! 😘😘😘</h1>
+      <div class="photo-space">
+        <img src="proposal.jpeg" class="celebration-photo">
+      </div>
+    </div>
+
   </div>
 
 </div>
@@ -272,21 +279,19 @@ button {
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
-const card = document.querySelector(".card");
 const hint = document.getElementById("hint");
 
 let dodgeCount = 0;
 
-function moveNoButton(e) {
-  if (e) e.preventDefault();
+function moveNoButton() {
   dodgeCount++;
 
-  const cardRect = card.getBoundingClientRect();
+  const cardRect = document.querySelector(".card").getBoundingClientRect();
   const noRect = noBtn.getBoundingClientRect();
   const yesRect = yesBtn.getBoundingClientRect();
 
-  const padding = 20;
-  const minDistance = 160;
+  const padding = 10;
+  const minDistance = 120;
 
   let newX, newY;
   let attempts = 0;
@@ -312,6 +317,7 @@ function moveNoButton(e) {
     if (distance > minDistance) valid = true;
   }
 
+  noBtn.style.position = "absolute";
   noBtn.style.left = newX + "px";
   noBtn.style.top = newY + "px";
 
@@ -319,7 +325,7 @@ function moveNoButton(e) {
 }
 
 noBtn.addEventListener("mouseenter", moveNoButton);
-noBtn.addEventListener("touchstart", moveNoButton, { passive: false });
+noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
 
 yesBtn.addEventListener("click", () => {
   document.getElementById("page1").style.display = "none";
