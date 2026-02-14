@@ -59,7 +59,6 @@ body {
 h2 { margin: 0; font-weight: 500; }
 h1 { font-size: 1.6rem; margin: 20px 0 26px 0; }
 
-/* Buttons side by side */
 .button-row {
   display: flex;
   justify-content: center;
@@ -114,7 +113,6 @@ button {
   box-shadow: 0 8px 18px rgba(0,0,0,0.2);
 }
 
-/* Brought closer to white box */
 .top-left { top: 100px; left: 80px; transform: rotate(-6deg); }
 .top-middle { top: 60px; left: 50%; transform: translateX(-50%) rotate(4deg); }
 .top-right { top: 100px; right: 80px; transform: rotate(6deg); }
@@ -123,8 +121,18 @@ button {
 .bottom-middle { bottom: 60px; left: 50%; transform: translateX(-50%) rotate(-4deg); }
 .bottom-right { bottom: 100px; right: 80px; transform: rotate(-5deg); }
 
-.left-middle { top: 50%; left: 60px; transform: translateY(-50%) rotate(8deg); }
-.right-middle { top: 50%; right: 60px; transform: translateY(-50%) rotate(-8deg); }
+/* 👇 ADJUSTED SIDE PHOTOS */
+.left-middle { 
+  top: 50%; 
+  left: 30px;   /* moved more left */
+  transform: translateY(-50%) rotate(8deg); 
+}
+
+.right-middle { 
+  top: 50%; 
+  right: 30px;  /* moved more right */
+  transform: translateY(-50%) rotate(-8deg); 
+}
 
 /* Celebration wrapper */
 .celebration-wrapper {
@@ -134,11 +142,10 @@ button {
   z-index: 2;
 }
 
-/* GIFs anchored to white box edges */
 .top-gif-row {
   display: flex;
   justify-content: space-between;
-  width: 200px;   /* matches white box width */
+  width: 200px;
   margin-bottom: 10px;
 }
 
@@ -148,10 +155,9 @@ button {
   object-fit: contain;
 }
 
-/* WHITE BOX REDUCED WIDTH */
 .celebration-box {
   background: white;
-  width: 200px;   /* reduced more */
+  width: 200px;
   height: 320px;
   border-radius: 24px;
   box-shadow: 0 18px 40px rgba(0,0,0,0.15);
@@ -178,35 +184,13 @@ button {
   border-radius: 16px;
   object-fit: cover;
 }
-
-/* Responsive */
-@media (max-width: 600px) {
-
-  .border-photo {
-    width: 70px;
-    height: 70px;
-  }
-
-  .celebration-box {
-    width: 180px;
-    height: 300px;
-  }
-
-  .top-gif-row {
-    width: 180px;
-  }
-
-  .header-gif {
-    width: 32px;
-    height: 32px;
-  }
-}
 </style>
 </head>
 
 <body>
 
-<img src="photo9.jpeg" class="top-image" />
+<!-- ✅ FRONT PAGE NOW USES photo9 -->
+<img src="photo9.jpg" class="top-image" />
 
 <div class="card" id="page1">
 
@@ -245,7 +229,6 @@ button {
   </div>
 
   <div class="celebration-wrapper">
-
     <div class="top-gif-row">
       <img src="gif1.gif">
       <img src="gif2.gif">
@@ -257,7 +240,6 @@ button {
         <img src="proposal.jpeg" class="celebration-photo">
       </div>
     </div>
-
   </div>
 
 </div>
