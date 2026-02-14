@@ -249,75 +249,40 @@ const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const hint = document.getElementById("hint");
 
-/* 🎵 Audio Setup */
 const song1 = new Audio("song1.mp3");
 const song2 = new Audio("song2.mp3");
 
 song1.loop = true;
 song2.loop = true;
 
-let songStarted = false;
+let musicStarted = false;
 let dodgeCount = 0;
 
-/* Start song1 on first interaction */
-function startMusic() {
-  if (!songStarted) {
-    song1.play().catch(() => {});
-    songStarted = true;
+/* Start song1 ONLY when user presses Yes or No first time */
+function startSong1() {
+  if (!musicStarted) {
+    song1.play().then(() => {
+      musicStarted = true;
+    }).catch(err => {
+      console.log("Autoplay blocked:", err);
+    });
   }
 }
 
-document.addEventListener("click", startMusic, { once: true });
-document.addEventListener("touchstart", startMusic, { once: true });
-
-/* NO button dodge */
-function moveNoButton() {
-  dodgeCount++;
-  const card = document.querySelector(".card");
-  const cardRect = card.getBoundingClientRect();
-  const noRect = noBtn.getBoundingClientRect();
-  const yesRect = yesBtn.getBoundingClientRect();
-
-  const padding = 10;
-  const minDistance = 120;
-
-  let newX, newY;
-  let attempts = 0;
-  let valid = false;
-
-  while (!valid && attempts < 50) {
-    attempts++;
-    newX = Math.random() * (cardRect.width - noRect.width - padding * 2) + padding;
-    newY = Math.random() * (cardRect.height - noRect.height - padding * 2) + padding;
-
-    const noCenterX = newX + noRect.width / 2;
-    const noCenterY = newY + noRect.height / 2;
-    const yesCenterX = yesBtn.offsetLeft + yesRect.width / 2;
-    const yesCenterY = yesBtn.offsetTop + yesRect.height / 2;
-
-    const distance = Math.hypot(noCenterX - yesCenterX, noCenterY - yesCenterY);
-    if (distance > minDistance) valid = true;
-  }
-
-  noBtn.style.position = "absolute";
-  noBtn.style.left = newX + "px";
-  noBtn.style.top = newY + "px";
-
-  if (dodgeCount === 10) hint.style.opacity = "1";
-}
-
-noBtn.addEventListener("mouseenter", moveNoButton);
-noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
-
-/* YES button click */
+/* YES BUTTON */
 yesBtn.addEventListener("click", () => {
 
-  /* Stop first song */
+  // Start song1 if it hasn't yet (ensures mobile allows audio)
+  startSong1();
+
+  // Stop song1
   song1.pause();
   song1.currentTime = 0;
 
-  /* Play second song instantly */
-  song2.play().catch(() => {});
+  // Play song2
+  song2.play().catch(err => {
+    console.log("Song2 blocked:", err);
+  });
 
   document.getElementById("page1").style.display = "none";
   document.querySelector(".top-image").style.display = "none";
@@ -330,8 +295,55 @@ yesBtn.addEventListener("click", () => {
     origin: { y: 0.6 }
   });
 });
+
+/* NO BUTTON DODGE */
+function moveNoButton() {
+
+  startSong1(); // start music on first interaction
+
+  dodgeCount++;
+
+  const card = document.querySelector(".card");
+  const cardRect = card.getBoundingClientRect();
+  const noRect = noBtn.getBoundingClientRect();
+  const yesRect = yesBtn.getBoundingClientRect();
+
+  const padding = 15;
+  const minDistance = 120;
+
+  let newX, newY;
+  let valid = false;
+  let tries = 0;
+
+  while (!valid && tries < 50) {
+    tries++;
+
+    newX = Math.random() * (cardRect.width - noRect.width - padding * 2) + padding;
+    newY = Math.random() * (cardRect.height - noRect.height - padding * 2) + padding;
+
+    const noCenterX = newX + noRect.width / 2;
+    const noCenterY = newY + noRect.height / 2;
+    const yesCenterX = yesBtn.offsetLeft + yesRect.width / 2;
+    const yesCenterY = yesBtn.offsetTop + yesRect.height / 2;
+
+    const distance = Math.hypot(noCenterX - yesCenterX, noCenterY - yesCenterY);
+
+    if (distance > minDistance) valid = true;
+  }
+
+  noBtn.style.position = "absolute";
+  noBtn.style.left = newX + "px";
+  noBtn.style.top = newY + "px";
+
+  if (dodgeCount === 10) hint.style.opacity = "1";
+}
+
+noBtn.addEventListener("mouseenter", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
 </script>
+
 
 </body>
 </html>
+
 
