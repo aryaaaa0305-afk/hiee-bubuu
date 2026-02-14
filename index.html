@@ -249,8 +249,28 @@ const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const hint = document.getElementById("hint");
 
+/* 🎵 Audio Setup */
+const song1 = new Audio("song1.mp3");
+const song2 = new Audio("song2.mp3");
+
+song1.loop = true;
+song2.loop = true;
+
+let songStarted = false;
 let dodgeCount = 0;
 
+/* Start song1 on first interaction */
+function startMusic() {
+  if (!songStarted) {
+    song1.play().catch(() => {});
+    songStarted = true;
+  }
+}
+
+document.addEventListener("click", startMusic, { once: true });
+document.addEventListener("touchstart", startMusic, { once: true });
+
+/* NO button dodge */
 function moveNoButton() {
   dodgeCount++;
   const card = document.querySelector(".card");
@@ -289,7 +309,16 @@ function moveNoButton() {
 noBtn.addEventListener("mouseenter", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
 
+/* YES button click */
 yesBtn.addEventListener("click", () => {
+
+  /* Stop first song */
+  song1.pause();
+  song1.currentTime = 0;
+
+  /* Play second song instantly */
+  song2.play().catch(() => {});
+
   document.getElementById("page1").style.display = "none";
   document.querySelector(".top-image").style.display = "none";
   hint.style.display = "none";
@@ -305,3 +334,4 @@ yesBtn.addEventListener("click", () => {
 
 </body>
 </html>
+
